@@ -175,7 +175,9 @@ module Geocoder
       end
 
       def parse_json(data)
-        if defined?(ActiveSupport::JSON)
+        if defined?(MultiJson)
+          MultiJson.load(data)
+        elsif defined?(ActiveSupport::JSON)
           ActiveSupport::JSON.decode(data)
         else
           JSON.parse(data)
